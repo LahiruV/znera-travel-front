@@ -19,6 +19,8 @@ export default function Register() {
     const [errors, setErrors] = useState({});
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [verificationCode, setVerificationCode] = useState('');
+    const [code, setCode] = useState('');
+    const [user, setUser] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -39,7 +41,8 @@ export default function Register() {
         const nic = data.get('nic');
         const password = data.get('password');
         let errors = {};
-
+        const user = { email, password, name, phone, address, nic };
+        setUser(user);
         if (!name || !email || !password || !phone || !address || !nic) {
             Swal.fire({
                 icon: 'error',
@@ -62,7 +65,8 @@ export default function Register() {
             return;
         }
         try {
-            const mailSend = await axios.post(`https://znera-travel-back-production.up.railway.app/api/auth/mailSend`, { email: email });
+            const mailSend = await axios.post(`http://localhost:5000/api/auth/mailSend`, { email: email });
+            setCode(mailSend.data.code);
             setIsModalOpen(true);  // Open the verification code modal  
         }
         catch (err) {
@@ -73,26 +77,21 @@ export default function Register() {
                 confirmButtonText: 'OK',
             });
             return;
-        }           
+        }
     };
 
     const handleVerificationSubmit = async () => {
-
-        try {
-            const response = await axios.post(`https://znera-travel-back-production.up.railway.app/api/auth/verify`, { code: verificationCode }).then((res) => {
-                try {
-                    const user = { email, password, name, phone, address, nic };
-                    const response = axios.post(`https://znera-travel-back-production.up.railway.app/api/auth/register`, user);
-                } catch (err) {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: err.response.data.msg,
-                        icon: 'error',
-                        confirmButtonText: 'OK',
-                    });
-                }
-            })
-
+        if (parseInt(verificationCode) === code) {            
+            try {               
+                const response = await axios.post(`http://localhost:5000/api/auth/register`, user);
+            } catch (err) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: err.response.data.msg,
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                });
+            }
             Swal.fire({
                 title: 'Success!',
                 text: 'You have successfully verified your account!',
@@ -103,14 +102,15 @@ export default function Register() {
                     navigate('/');
                 }
             });
-        } catch (err) {
+        } else {
             Swal.fire({
                 title: 'Error!',
-                text: err.response.data.msg,
+                text: "Invalid verification code!",
                 icon: 'error',
                 confirmButtonText: 'OK',
             });
         }
+        setIsModalOpen(false);
     };
 
     return (
