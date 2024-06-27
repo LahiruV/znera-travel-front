@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Grid } from '@mui/material';
+import { Grid, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Button } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Swal from 'sweetalert2';
 import axios from 'axios';
@@ -17,6 +17,8 @@ export default function Register() {
     ];
     const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
     const [errors, setErrors] = useState({});
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [verificationCode, setVerificationCode] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -59,40 +61,92 @@ export default function Register() {
             setErrors(errors);
             return;
         }
+        try {
+            const mailSend = await axios.post(`https://znera-travel-back-production.up.railway.app/api/auth/mailSend`, { email: email });
+            setIsModalOpen(true);  // Open the verification code modal  
+        }
+        catch (err) {
+            Swal.fire({
+                title: 'Error!',
+                text: err.response.data.msg,
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+            return;
+        }           
+    };
+
+    const handleVerificationSubmit = async () => {
 
         try {
-            const user = { email, password, name, phone, address, nic};
-            // const response = await axios.post(`${API_URL}/auth/register`, user);
-            const response = await axios.post(`http://localhost:5000/api/auth/register`, user);
-           
-                Swal.fire({
-                    title: 'Success!',
-                    text: "You have successfully registered!",
-                    icon: 'success',
-                    confirmButtonText: 'OK',
-                    type: 'success',
-                }).then((okay) => {
-                    if (okay) {
-                        navigate('/');
-                    }
-                });
-           
+            const response = await axios.post(`https://znera-travel-back-production.up.railway.app/api/auth/verify`, { code: verificationCode }).then((res) => {
+                try {
+                    const user = { email, password, name, phone, address, nic };
+                    const response = axios.post(`https://znera-travel-back-production.up.railway.app/api/auth/register`, user);
+                } catch (err) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: err.response.data.msg,
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                    });
+                }
+            })
+
+            Swal.fire({
+                title: 'Success!',
+                text: 'You have successfully verified your account!',
+                icon: 'success',
+                confirmButtonText: 'OK',
+            }).then((okay) => {
+                if (okay) {
+                    navigate('/');
+                }
+            });
         } catch (err) {
             Swal.fire({
                 title: 'Error!',
                 text: err.response.data.msg,
                 icon: 'error',
                 confirmButtonText: 'OK',
-                type: 'error',
             });
         }
     };
 
     return (
         <ThemeProvider theme={defaultTheme}>
-            <Grid container component="main" sx={{ height: '100vh' }}>                
+            <Grid container component="main" sx={{ height: '100vh' }}>
                 <LeftSection quotes={quotes} currentQuoteIndex={currentQuoteIndex} />
                 <RightSection handleSubmit={handleSubmit} errors={errors} />
+
+                {/* Verification Code Modal */}
+                <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                    <DialogTitle>Enter Verification Code</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            Please enter the verification code sent to your email to complete the registration.
+                        </DialogContentText>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="verificationCode"
+                            label="Verification Code"
+                            type="text"
+                            fullWidth
+                            variant="outlined"
+                            value={verificationCode}
+                            onChange={(e) => setVerificationCode(e.target.value)}
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => setIsModalOpen(false)} color="primary">
+                            Cancel
+                        </Button>
+                        <Button onClick={handleVerificationSubmit} color="primary">
+                            Verify
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </Grid>
         </ThemeProvider>
     );
