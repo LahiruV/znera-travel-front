@@ -19,7 +19,7 @@ const defaultTheme = createTheme();
 const PaperStyled = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(5),
     margin: 'auto',
-    width: '100%',
+    width: '130%',
 }));
 
 const AvatarStyled = styled(Avatar)(({ theme }) => ({
@@ -143,7 +143,7 @@ function Profile() {
             <div>
                 <Navbar />
                 <div style={{marginLeft:'620px'}}>
-                    <div style={{ textAlign: 'center', margin: '2rem 0', paddingTop: '130px', paddingLeft:'100px'}}>
+                    <div style={{ textAlign: 'center', margin: '2rem 0', paddingTop: '130px', paddingLeft:'170px'}}>
                         <Typography variant="h3" component="h1">Profile</Typography>
                     <hr style={{ width: 100 }} />
                     </div>
@@ -179,38 +179,23 @@ function Profile() {
                                     <Typography variant="body1">
                                         {profileDetails.phone}
                                     </Typography>
-                                </div>
-                                <div style={{ marginBottom: '2rem' }}>
+                                </div>  
+                              <div style={{ marginBottom: '2rem' }}>
                                     <Typography variant="h6" style={{ fontWeight: 'bold' }}>
-                                        Loyalty Status:
+                                        Address:
                                     </Typography>
                                     <Typography variant="body1">
-                                        {profileDetails.isLoyal === 'true' ? 'Loyal Customer' : 'Not Loyal Customer'}
+                                        {profileDetails.address}
                                     </Typography>
-                                </div>
-                                {profileDetails.isLoyal === 'true' && (
-                                    <div style={{ marginBottom: '2rem' }}>
-                                        <Typography variant="h6" style={{ fontWeight: 'bold' }}>
-                                            Points:
-                                        </Typography>
-                                        <Typography variant="body1">
-                                            {profileDetails.points}
-                                        </Typography>
-                                    </div>
-                                )}
-                                {profileDetails.isLoyal !== 'true' && (
-                                    <>
-                                        <Button
-                                            variant="contained"
-                                            style={{ marginTop: '2rem', backgroundColor: '#009688', color: '#fff' }}
-                                            onClick={handleLoyalProfile}
-                                        >
-                                            Activate Loyalty
-                                        </Button>
-                                        &nbsp;
-                                        &nbsp;
-                                    </>
-                                )}
+                                </div> 
+                                  <div style={{ marginBottom: '2rem' }}>
+                                    <Typography variant="h6" style={{ fontWeight: 'bold' }}>
+                                        NIC:
+                                    </Typography>
+                                    <Typography variant="body1">
+                                        {profileDetails.address}
+                                    </Typography>
+                                </div>                              
                                 <Button
                                     variant="contained"
                                     color="secondary"
@@ -228,6 +213,16 @@ function Profile() {
                                     onClick={handleEditProfile}
                                 >
                                     Edit Profile
+                                </Button>
+                                &nbsp;
+                                &nbsp;
+                                <Button
+                                    variant="contained"
+                                    color="success"
+                                    style={{ marginTop: '2rem' }}
+                                    onClick={handleEditProfile}
+                                >
+                                    Add Image
                                 </Button>
                             </PaperStyled>
                         </Grid>
