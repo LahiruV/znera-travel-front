@@ -43,10 +43,10 @@ const Navbar = () => {
           <MenuItem component={NavLink} to="/freindZone" style={getLinkStyle} >
             Friend Zone
           </MenuItem>
-          <MenuItem component={NavLink} to="/profile" style={getLinkStyle}>
+          <MenuItem component={NavLink} to="/groups" style={getLinkStyle}>
             Group Zone
           </MenuItem>
-          <MenuItem component={NavLink} to="/profile" style={getLinkStyle}>
+          <MenuItem component={NavLink} to="/trip" style={getLinkStyle}>
             Trip management
           </MenuItem>
           <MenuItem component={NavLink} to="/profile" style={getLinkStyle}>
