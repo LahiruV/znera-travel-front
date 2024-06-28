@@ -5,6 +5,9 @@ import { Typography, Card, CardActionArea, CardContent, CardMedia, Grid, IconBut
 import SwipeableViews from 'react-swipeable-views';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const defaultTheme = createTheme();
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -96,7 +99,7 @@ const Home = () => {
     ];
 
     return (
-        <div>
+        <ThemeProvider theme={defaultTheme}>
             <Navbar />
             <div className={classes.root}>
                 <Typography variant="h2" align="center" className={classes.title} style={{ fontWeight: 'bold', }}>
@@ -263,7 +266,7 @@ const Home = () => {
                 </Grid>
             </div>
             {/* <Footer /> */}
-        </div>
+        </ThemeProvider>
     );
 };
 

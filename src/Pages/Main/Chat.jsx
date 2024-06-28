@@ -1,5 +1,5 @@
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Navbar from '../../Components/NavBar/Navbar';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const defaultTheme = createTheme();
 
