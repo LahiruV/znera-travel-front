@@ -27,14 +27,8 @@ const Navbar = () => {
           Zenra <span style={{color:'orange'}}>Travels</span>
         </Typography>
         <div style={{ display: 'flex', gap: '1rem' }}>
-          {/* <MenuItem component={NavLink} to="/home" style={linkStyle}>
-            Home
-          </MenuItem>
-          <MenuItem component={NavLink} to="/about" style={linkStyle}>
-            About
-          </MenuItem> */}
-          <MenuItem component={NavLink} to="/cookHelper" style={getLinkStyle}>
-            Cook Helper
+          <MenuItem component={NavLink} to="/home" style={getLinkStyle}>
+           Home
           </MenuItem>
           <Button variant="contained" color="warning" onClick={handleLogout}>
             Logout
