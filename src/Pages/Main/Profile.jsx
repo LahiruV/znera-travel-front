@@ -50,6 +50,7 @@ function Profile() {
     const profileDetails = profile[0] || {};
     const [edtname, setEdtname] = useState(profileDetails.name);
     const [edtphone, setEdtphone] = useState(profileDetails.phone);
+    const [edtaddress, setEdtAddress] = useState(profileDetails.address);
 
     useEffect(() => {
         fetchProfile();
@@ -75,31 +76,6 @@ function Profile() {
             console.error('Error deleting profile:', error);
         }
     }
-
-    const handleLoyalProfile = async () => {
-        try {
-            profileDetails.isLoyal = true;
-            const editData = {
-                ...profileDetails,
-                isLoyal: true,
-            };
-
-            const res = await axios.put(global.APIUrl + `/user/update`, editData);
-
-            Swal.fire({
-                title: "Success!",
-                text: "Loyalty Activated",
-                icon: 'success',
-                confirmButtonText: "OK"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = "/Profile";
-                }
-            });
-        } catch (error) {
-            console.error('Error updating profile:', error);
-        }
-    };
 
     const handleEditProfile = () => {
         setEditModalOpen(true);
@@ -158,7 +134,7 @@ function Profile() {
                                     </AvatarStyled>
                                     <br />
                                     <Typography variant="h6" style={{ fontWeight: 'bold' }}>
-                                        Name:
+                                        Name: Kavisha
                                     </Typography>
                                     <Typography variant="body1">
                                         {profileDetails.name}
@@ -166,7 +142,7 @@ function Profile() {
                                 </div>
                                 <div style={{ marginBottom: '2rem' }}>
                                     <Typography variant="h6" style={{ fontWeight: 'bold' }}>
-                                        Email:
+                                        Email: kavisha@gmail.com
                                     </Typography>
                                     <Typography variant="body1">
                                         {profileDetails.email}
@@ -174,7 +150,7 @@ function Profile() {
                                 </div>
                                 <div style={{ marginBottom: '2rem' }}>
                                     <Typography variant="h6" style={{ fontWeight: 'bold' }}>
-                                        Phone:
+                                        Phone: 0112323232
                                     </Typography>
                                     <Typography variant="body1">
                                         {profileDetails.phone}
@@ -182,7 +158,7 @@ function Profile() {
                                 </div>  
                               <div style={{ marginBottom: '2rem' }}>
                                     <Typography variant="h6" style={{ fontWeight: 'bold' }}>
-                                        Address:
+                                        Address: Colombo 07
                                     </Typography>
                                     <Typography variant="body1">
                                         {profileDetails.address}
@@ -190,7 +166,7 @@ function Profile() {
                                 </div> 
                                   <div style={{ marginBottom: '2rem' }}>
                                     <Typography variant="h6" style={{ fontWeight: 'bold' }}>
-                                        NIC:
+                                        NIC: 19982356452
                                     </Typography>
                                     <Typography variant="body1">
                                         {profileDetails.address}
@@ -249,14 +225,23 @@ function Profile() {
                                     required
                                 />
                                 <TextField
+                                    id="address"
+                                    name="address"
+                                    label="Address"
+                                    value={edtaddress}
+                                    onChange={(e) => setEdtAddress(e.target.value)}
+                                    fullWidth
+                                    margin="normal"
+                                    required
+                                />
+                                <TextField
                                     id="phone"
                                     name="phone"
                                     label="Phone"
                                     value={edtphone}
                                     onChange={(e) => setEdtphone(e.target.value)}
                                     fullWidth
-                                    margin="normal"
-                                    type='number'
+                                    margin="normal"                                    
                                     required
                                 />
                                 <Button
