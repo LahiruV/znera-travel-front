@@ -8,6 +8,7 @@ import {
     Modal,
     TextField,
     styled,
+    Box,
 } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import axios from 'axios';
@@ -19,12 +20,10 @@ const defaultTheme = createTheme();
 const PaperStyled = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(5),
     margin: 'auto',
-    width: '130%',
 }));
 
 const AvatarStyled = styled(Avatar)(({ theme }) => ({
     backgroundColor: theme.palette.secondary.main,
-    marginLeft: '150px',
     width: theme.spacing(10),
     height: theme.spacing(10),
     display: 'flex',
@@ -118,17 +117,16 @@ function Profile() {
         <ThemeProvider theme={defaultTheme}>
             <div>
                 <Navbar />
-                <div style={{marginLeft:'620px'}}>
-                    <div style={{ textAlign: 'center', margin: '2rem 0', paddingTop: '130px', paddingLeft:'170px'}}>
-                        <Typography variant="h3" component="h1">Profile</Typography>
-                    <hr style={{ width: 100 }} />
-                    </div>
-                    <br />
-                    <br />
+                <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    minHeight="100vh"
+                >
                     <Grid container justifyContent="center">
-                        <Grid item xs={12} sm={8}>
-                            <PaperStyled>
-                                <div style={{ marginBottom: '2rem' }}>
+                        <Grid item xs={12} sm={8} md={6}>
+                            <PaperStyled sx={{ textAlign: 'center' }}>
+                                <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" marginBottom="2rem">
                                     <AvatarStyled>
                                         <AccountCircleIcon />
                                     </AvatarStyled>
@@ -139,7 +137,7 @@ function Profile() {
                                     <Typography variant="body1">
                                         {profileDetails.name}
                                     </Typography>
-                                </div>
+                                </Box>
                                 <div style={{ marginBottom: '2rem' }}>
                                     <Typography variant="h6" style={{ fontWeight: 'bold' }}>
                                         Email: kavisha@gmail.com
@@ -155,23 +153,23 @@ function Profile() {
                                     <Typography variant="body1">
                                         {profileDetails.phone}
                                     </Typography>
-                                </div>  
-                              <div style={{ marginBottom: '2rem' }}>
+                                </div>
+                                <div style={{ marginBottom: '2rem' }}>
                                     <Typography variant="h6" style={{ fontWeight: 'bold' }}>
                                         Address: Colombo 07
                                     </Typography>
                                     <Typography variant="body1">
                                         {profileDetails.address}
                                     </Typography>
-                                </div> 
-                                  <div style={{ marginBottom: '2rem' }}>
+                                </div>
+                                <div style={{ marginBottom: '2rem' }}>
                                     <Typography variant="h6" style={{ fontWeight: 'bold' }}>
                                         NIC: 19982356452
                                     </Typography>
                                     <Typography variant="body1">
-                                        {profileDetails.address}
+                                        {profileDetails.nic}
                                     </Typography>
-                                </div>                              
+                                </div>
                                 <Button
                                     variant="contained"
                                     color="secondary"
@@ -203,61 +201,59 @@ function Profile() {
                             </PaperStyled>
                         </Grid>
                     </Grid>
-                    <Modal
-                        open={editModalOpen}
-                        onClose={handleModalClose}
-                        aria-labelledby="simple-modal-title"
-                        aria-describedby="simple-modal-description"
-                    >
-                        <ModalPaperStyled>
-                            <Typography variant="h6" id="modal-title">
-                                Edit Profile
-                            </Typography>
-                            <form>
-                                <TextField
-                                    id="name"
-                                    name="name"
-                                    label="Name"
-                                    value={edtname}
-                                    onChange={(e) => setEdtname(e.target.value)}
-                                    fullWidth
-                                    margin="normal"
-                                    required
-                                />
-                                <TextField
-                                    id="address"
-                                    name="address"
-                                    label="Address"
-                                    value={edtaddress}
-                                    onChange={(e) => setEdtAddress(e.target.value)}
-                                    fullWidth
-                                    margin="normal"
-                                    required
-                                />
-                                <TextField
-                                    id="phone"
-                                    name="phone"
-                                    label="Phone"
-                                    value={edtphone}
-                                    onChange={(e) => setEdtphone(e.target.value)}
-                                    fullWidth
-                                    margin="normal"                                    
-                                    required
-                                />
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={handleSaveChanges}
-                                    style={{ marginTop: '1rem' }}
-                                >
-                                    Save Changes
-                                </Button>
-                            </form>
-                        </ModalPaperStyled>
-                    </Modal>
-                    <br />
-                    <br />
-                </div>
+                </Box>
+                <Modal
+                    open={editModalOpen}
+                    onClose={handleModalClose}
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                >
+                    <ModalPaperStyled>
+                        <Typography variant="h6" id="modal-title">
+                            Edit Profile
+                        </Typography>
+                        <form>
+                            <TextField
+                                id="name"
+                                name="name"
+                                label="Name"
+                                value={edtname}
+                                onChange={(e) => setEdtname(e.target.value)}
+                                fullWidth
+                                margin="normal"
+                                required
+                            />
+                            <TextField
+                                id="address"
+                                name="address"
+                                label="Address"
+                                value={edtaddress}
+                                onChange={(e) => setEdtAddress(e.target.value)}
+                                fullWidth
+                                margin="normal"
+                                required
+                            />
+                            <TextField
+                                id="phone"
+                                name="phone"
+                                label="Phone"
+                                value={edtphone}
+                                onChange={(e) => setEdtphone(e.target.value)}
+                                fullWidth
+                                margin="normal"
+                                required
+                            />
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={handleSaveChanges}
+                                style={{ marginTop: '1rem' }}
+                            >
+                                Save Changes
+                            </Button>
+                        </form>
+                    </ModalPaperStyled>
+                </Modal>
             </div>
         </ThemeProvider>
     );
