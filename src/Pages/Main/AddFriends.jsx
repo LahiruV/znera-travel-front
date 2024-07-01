@@ -1,17 +1,17 @@
 // src/pages/AddFriends/AddFriends.jsx
 
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../../Components/NavBar/Navbar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Container, Box, Typography, TextField, Button, List, ListItem, ListItemText, Avatar, Grid, Card, CardContent, CardActions } from '@mui/material';
-import axios from 'axios';  
+import axios from 'axios';
 
 const defaultTheme = createTheme();
 
 export default function AddFriends() {
   const [searchQuery, setSearchQuery] = useState('');
   const [users, setUsers] = useState([]);
-
+  const loguser = sessionStorage.getItem('user');
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -29,7 +29,7 @@ export default function AddFriends() {
         };
 
         const response = await axios.get('http://localhost:5000/api/auth/users', config);
-        setUsers(response.data);        
+        setUsers(response.data);
       } catch (error) {
         console.error('Error fetching users', error);
       }
@@ -42,15 +42,22 @@ export default function AddFriends() {
     user.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleSendRequest = (id) => {
-    console.log(`Friend request sent to user with id: ${id}`);    
+  const handleSendRequest = async (id) => {
+    const data = {
+      from: loguser,
+      to: id
+    };  
+    await axios.post('http://localhost:5000/api/friend/addFriend', data)
+      .then((response) => {
+        console.log(response);
+      });
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <Navbar />
       <Container>
-        <Box my={4} sx={{paddingTop: '130px'}}>
+        <Box my={4} sx={{ paddingTop: '130px' }}>
           <Typography variant="h4" component="h1" gutterBottom align="center">
             Add Friends
           </Typography>

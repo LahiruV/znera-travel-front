@@ -108,8 +108,8 @@ const Home = () => {
                         'Authorization': `Bearer ${token}`
                     }
                 };
-                const response = await axios.get('http://localhost:5000/api/auth/me', config);
-                sessionStorage.setItem("user", response.data);                
+                const response = await axios.get('http://localhost:5000/api/auth/me', config);                
+                sessionStorage.setItem("user", response.data._id);                
             } catch (error) {
                 console.error('Error fetching user data', error);
             }
