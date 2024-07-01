@@ -5,6 +5,7 @@ import Chat from './Pages/Main/Chat';
 import Home from './Pages/Main/Home';
 import Profile from './Pages/Main/Profile';
 import FriendReq from './Pages/Main/FreindReq';
+import AddFriends from './Pages/Main/AddFriends';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/Register" element={<Register />} />
         <Route path="/cookHelper" element={<Chat />} />
         <Route path="/freindZone" element={<FriendReq />} />
+        <Route path="/addfreinds" element={<AddFriends />} />
         <Route path="/home" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
