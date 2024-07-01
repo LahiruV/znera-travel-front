@@ -28,7 +28,7 @@ export default function AddFriends() {
           }
         };
 
-        const response = await axios.get('http://localhost:5000/api/auth/users', config);
+        const response = await axios.get('https://backendnizz.onrender.com/api/auth/users', config);
         setUsers(response.data);
       } catch (error) {
         console.error('Error fetching users', error);
@@ -47,7 +47,7 @@ export default function AddFriends() {
       from: loguser,
       to: id
     };  
-    await axios.post('http://localhost:5000/api/friend/addFriend', data)
+    await axios.post('https://backendnizz.onrender.com/api/friend/addFriend', data)
       .then((response) => {
         console.log(response);
       });

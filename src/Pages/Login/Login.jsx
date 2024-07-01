@@ -59,7 +59,7 @@ export default function Login() {
         let user = { email, password };
 
         try {
-            const response = await axios.post("http://localhost:5000/api/auth/login", user);
+            const response = await axios.post("https://backendnizz.onrender.com/api/auth/login", user);
             sessionStorage.setItem("token", response.data.token);            
             await Swal.fire({
                 title: "Success!",
