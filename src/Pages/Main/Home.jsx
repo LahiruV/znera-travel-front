@@ -109,8 +109,7 @@ const Home = () => {
                     }
                 };
                 const response = await axios.get('http://localhost:5000/api/auth/me', config);
-                sessionStorage.setItem("user", response.data);
-                console.log(response.data);
+                sessionStorage.setItem("user", response.data);                
             } catch (error) {
                 console.error('Error fetching user data', error);
             }

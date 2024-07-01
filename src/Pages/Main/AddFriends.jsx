@@ -1,29 +1,49 @@
 // src/pages/AddFriends/AddFriends.jsx
 
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Navbar from '../../Components/NavBar/Navbar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Container, Box, Typography, TextField, Button, List, ListItem, ListItemText, Avatar, Grid, Card, CardContent, CardActions } from '@mui/material';
+import axios from 'axios';  
 
 const defaultTheme = createTheme();
 
-const dummyUsers = [
-  { id: 1, name: 'John Doe', avatar: 'https://via.placeholder.com/150' },
-  { id: 2, name: 'Jane Smith', avatar: 'https://via.placeholder.com/150' },
-  { id: 3, name: 'Alice Johnson', avatar: 'https://via.placeholder.com/150' },
-  // Add more dummy users as needed
-];
-
 export default function AddFriends() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [users, setUsers] = useState([]);
 
-  const filteredUsers = dummyUsers.filter(user =>
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const token = sessionStorage.getItem('token');
+
+        if (!token) {
+          console.error('No token found');
+          return;
+        }
+
+        const config = {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        };
+
+        const response = await axios.get('http://localhost:5000/api/auth/users', config);
+        setUsers(response.data);        
+      } catch (error) {
+        console.error('Error fetching users', error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  const filteredUsers = users.filter(user =>
     user.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const handleSendRequest = (id) => {
-    console.log(`Friend request sent to user with id: ${id}`);
-    // Add logic to send a friend request
+    console.log(`Friend request sent to user with id: ${id}`);    
   };
 
   return (
@@ -47,7 +67,7 @@ export default function AddFriends() {
             <Grid item xs={12}>
               <List>
                 {filteredUsers.map((user) => (
-                  <ListItem key={user.id}>
+                  <ListItem key={user._id}>
                     <Card sx={{ width: '100%' }}>
                       <CardContent>
                         <Grid container alignItems="center">
@@ -60,7 +80,7 @@ export default function AddFriends() {
                         </Grid>
                       </CardContent>
                       <CardActions>
-                        <Button variant="contained" color="secondary" onClick={() => handleSendRequest(user.id)}>
+                        <Button variant="contained" color="secondary" onClick={() => handleSendRequest(user._id)}>
                           Send Friend Request
                         </Button>
                       </CardActions>
