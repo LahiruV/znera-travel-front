@@ -6,6 +6,7 @@ import SwipeableViews from 'react-swipeable-views';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
 
 const defaultTheme = createTheme();
 
@@ -97,6 +98,26 @@ const Home = () => {
         'https://images.pexels.com/photos/450441/pexels-photo-450441.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
         'https://images.pexels.com/photos/413960/pexels-photo-413960.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     ];
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const token = sessionStorage.getItem('token');
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                };
+                const response = await axios.get('http://localhost:5000/api/auth/me', config);
+                sessionStorage.setItem("user", response.data);
+                console.log(response.data);
+            } catch (error) {
+                console.error('Error fetching user data', error);
+            }
+        };
+
+        fetchUserData();
+    }, []);
 
     return (
         <ThemeProvider theme={defaultTheme}>

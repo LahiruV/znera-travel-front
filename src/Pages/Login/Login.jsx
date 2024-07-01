@@ -61,6 +61,7 @@ export default function Login() {
         try {
             const response = await axios.post("http://localhost:5000/api/auth/login", user);
             sessionStorage.setItem("token", response.data.token);
+            console.log(response.data.token);
             await Swal.fire({
                 title: "Success!",
                 text: "Login Success",
