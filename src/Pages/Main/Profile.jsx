@@ -51,7 +51,7 @@ function Profile() {
     const [edtaddress, setEdtAddress] = useState();
     const [imageSelected, setImageSelected] = useState(null);
     const [picture, setPicture] = useState();
-
+    const token = sessionStorage.getItem('token');
     const fetchUserData = async () => {
         try {
             const token = sessionStorage.getItem('token');
@@ -67,31 +67,26 @@ function Profile() {
         }
     };
 
-
-    useEffect(() => {
-        fetchProfile();
-    }, []);
-
-    const fetchProfile = async () => {
-        try {
-            const email = sessionStorage.getItem("cusmail");
-            const res = await axios.get(global.APIUrl + `/user/profile/${email}`);
-            setProfile(res.data);
-        } catch (error) {
-            console.error('Error fetching profile:', error);
-        }
-    };
-
     const handleDeleteProfile = async () => {
         try {
-            const email = sessionStorage.getItem("cusmail");
-            const res = await axios.delete(global.APIUrl + `/user/delete/${email}`);
-            sessionStorage.setItem('cusmail', 'empty');
-            window.location.href = "/";
+            const token = sessionStorage.getItem('token');
+            const id = logUser._id; // Ensure logUser._id is correctly set
+
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                data: { id } // Ensure id is passed correctly in the request body
+            };
+
+            const res = await axios.delete("https://backendnizz.onrender.com/api/auth/delete", config);
+            console.log('User deleted:', res.data);
+            window.location.href = "/"; // Redirect after successful delete
         } catch (error) {
             console.error('Error deleting profile:', error);
         }
-    }
+    };
 
     const handleEditProfile = () => {
         setEdtname(logUser.name);
@@ -124,8 +119,7 @@ function Profile() {
         };
 
         try {
-            // Update the user profile
-            const token = sessionStorage.getItem('token');
+            // Update the user profile            
             const res = await axios.put(
                 "https://backendnizz.onrender.com/api/auth/update",
                 data,
@@ -155,7 +149,7 @@ function Profile() {
         }
     };
 
-    useEffect(() => {       
+    useEffect(() => {
         fetchUserData();
     }, []);
 
@@ -178,7 +172,7 @@ function Profile() {
                         <Grid item xs={12} sm={8} md={6}>
                             <PaperStyled sx={{ textAlign: 'center' }}>
                                 <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" marginBottom="2rem">
-                                <img src={logUser.profile} alt="Profile" style={{ width: '150px', borderRadius: '50%' }} />
+                                    <img src={logUser.profile} alt="Profile" style={{ width: '150px', borderRadius: '50%' }} />
                                     <br />
                                     <Typography variant="h6" style={{ fontWeight: 'bold' }}>
                                         Name: {logUser.name}
