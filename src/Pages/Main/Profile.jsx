@@ -52,6 +52,21 @@ function Profile() {
     const [imageSelected, setImageSelected] = useState(null);
     const [picture, setPicture] = useState();
 
+    const fetchUserData = async () => {
+        try {
+            const token = sessionStorage.getItem('token');
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            };
+            const response = await axios.get('https://backendnizz.onrender.com/api/auth/me', config);
+            setLogUser(response.data);
+        } catch (error) {
+            console.error('Error fetching user data', error);
+        }
+    };
+
 
     useEffect(() => {
         fetchProfile();
@@ -128,6 +143,7 @@ function Profile() {
                 icon: 'success',
                 confirmButtonText: "OK"
             });
+            fetchUserData();
         } catch (error) {
             Swal.fire({
                 title: "Error!",
@@ -139,22 +155,7 @@ function Profile() {
         }
     };
 
-    useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const token = sessionStorage.getItem('token');
-                const config = {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                };
-                const response = await axios.get('https://backendnizz.onrender.com/api/auth/me', config);
-                setLogUser(response.data);
-            } catch (error) {
-                console.error('Error fetching user data', error);
-            }
-        };
-
+    useEffect(() => {       
         fetchUserData();
     }, []);
 
