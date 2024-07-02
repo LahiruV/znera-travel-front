@@ -44,12 +44,14 @@ const ModalPaperStyled = styled('div')(({ theme }) => ({
 }));
 
 function Profile() {
-    const [profile, setProfile] = useState([]);
     const [editModalOpen, setEditModalOpen] = useState(false);
-    const profileDetails = profile[0] || {};
-    const [edtname, setEdtname] = useState(profileDetails.name);
-    const [edtphone, setEdtphone] = useState(profileDetails.phone);
-    const [edtaddress, setEdtAddress] = useState(profileDetails.address);
+    const [logUser, setLogUser] = useState([]);
+    const [edtname, setEdtname] = useState();
+    const [edtphone, setEdtphone] = useState();
+    const [edtaddress, setEdtAddress] = useState();
+    const [imageSelected, setImageSelected] = useState(null);
+    const [picture, setPicture] = useState();
+
 
     useEffect(() => {
         fetchProfile();
@@ -77,6 +79,9 @@ function Profile() {
     }
 
     const handleEditProfile = () => {
+        setEdtname(logUser.name);
+        setEdtphone(logUser.phone);
+        setEdtAddress(logUser.address);
         setEditModalOpen(true);
     };
 
@@ -85,32 +90,77 @@ function Profile() {
     };
 
     const handleSaveChanges = async () => {
-        try {
-            const data = {
-                name: edtname,
-                phone: edtphone,
-                email: profileDetails.email,
-                password: profileDetails.password,
-                isLoyal: profileDetails.isLoyal,
-                points: profileDetails.points,
-                userType: profileDetails.userType
-            };
+        const formData = new FormData();
+        formData.append("file", imageSelected);
+        formData.append("upload_preset", "ml_default");
+        await axios.post(
+            "https://api.cloudinary.com/v1_1/dnomnqmne/image/upload",
+            formData
+        );
 
-            const res = await axios.put(global.APIUrl + `/user/update`, data);
+        const data = {
+            name: edtname,
+            email: logUser.email,
+            phone: edtphone,
+            address: edtaddress,
+            nic: logUser.nic,
+            password: logUser.password,
+            profile: picture
+        };
+
+        try {
+            // Update the user profile
+            const token = sessionStorage.getItem('token');
+            const res = await axios.put(
+                "https://backendnizz.onrender.com/api/auth/update",
+                data,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
 
             Swal.fire({
                 title: "Success!",
                 text: "Profile Updated Successfully",
                 icon: 'success',
                 confirmButtonText: "OK"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.reload();
-                }
             });
         } catch (error) {
+            Swal.fire({
+                title: "Error!",
+                text: "Profile Not Updated",
+                icon: 'error',
+                confirmButtonText: "OK"
+            });
             console.error('Error updating profile:', error);
         }
+    };
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const token = sessionStorage.getItem('token');
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                };
+                const response = await axios.get('https://backendnizz.onrender.com/api/auth/me', config);
+                setLogUser(response.data);
+            } catch (error) {
+                console.error('Error fetching user data', error);
+            }
+        };
+
+        fetchUserData();
+    }, []);
+
+    const handleImageChange = (event) => {
+        setImageSelected(event.target.files[0]);
+        setPicture("https://res.cloudinary.com/dnomnqmne/image/upload/v1630743483/" + event.target.files[0].name);
     };
 
     return (
@@ -127,47 +177,30 @@ function Profile() {
                         <Grid item xs={12} sm={8} md={6}>
                             <PaperStyled sx={{ textAlign: 'center' }}>
                                 <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" marginBottom="2rem">
-                                    <AvatarStyled>
-                                        <AccountCircleIcon />
-                                    </AvatarStyled>
+                                <img src={logUser.profile} alt="Profile" style={{ width: '150px', borderRadius: '50%' }} />
                                     <br />
                                     <Typography variant="h6" style={{ fontWeight: 'bold' }}>
-                                        Name: Kavisha
-                                    </Typography>
-                                    <Typography variant="body1">
-                                        {profileDetails.name}
+                                        Name: {logUser.name}
                                     </Typography>
                                 </Box>
                                 <div style={{ marginBottom: '2rem' }}>
                                     <Typography variant="h6" style={{ fontWeight: 'bold' }}>
-                                        Email: kavisha@gmail.com
-                                    </Typography>
-                                    <Typography variant="body1">
-                                        {profileDetails.email}
+                                        Email: {logUser.email}
                                     </Typography>
                                 </div>
                                 <div style={{ marginBottom: '2rem' }}>
                                     <Typography variant="h6" style={{ fontWeight: 'bold' }}>
-                                        Phone: 0112323232
-                                    </Typography>
-                                    <Typography variant="body1">
-                                        {profileDetails.phone}
+                                        Phone: {logUser.phone}
                                     </Typography>
                                 </div>
                                 <div style={{ marginBottom: '2rem' }}>
                                     <Typography variant="h6" style={{ fontWeight: 'bold' }}>
-                                        Address: Colombo 07
-                                    </Typography>
-                                    <Typography variant="body1">
-                                        {profileDetails.address}
+                                        Address: {logUser.address}
                                     </Typography>
                                 </div>
                                 <div style={{ marginBottom: '2rem' }}>
                                     <Typography variant="h6" style={{ fontWeight: 'bold' }}>
-                                        NIC: 19982356452
-                                    </Typography>
-                                    <Typography variant="body1">
-                                        {profileDetails.nic}
+                                        NIC: {logUser.nic}
                                     </Typography>
                                 </div>
                                 <Button
@@ -187,16 +220,6 @@ function Profile() {
                                     onClick={handleEditProfile}
                                 >
                                     Edit Profile
-                                </Button>
-                                &nbsp;
-                                &nbsp;
-                                <Button
-                                    variant="contained"
-                                    color="success"
-                                    style={{ marginTop: '2rem' }}
-                                    onClick={handleEditProfile}
-                                >
-                                    Add Image
                                 </Button>
                             </PaperStyled>
                         </Grid>
@@ -242,6 +265,12 @@ function Profile() {
                                 fullWidth
                                 margin="normal"
                                 required
+                            />
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImageChange}
+                                style={{ marginTop: '1rem' }}
                             />
                             <Button
                                 variant="contained"
