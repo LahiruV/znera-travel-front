@@ -6,6 +6,7 @@ import Home from './Pages/Main/Home';
 import Profile from './Pages/Main/Profile';
 import FriendReq from './Pages/Main/FreindReq';
 import AddFriends from './Pages/Main/AddFriends';
+import Trip from './Pages/Main/Trip';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/addfreinds" element={<AddFriends />} />
         <Route path="/home" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/trip" element={<Trip />} />
       </Routes>
     </Router>
   );
