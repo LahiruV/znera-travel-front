@@ -14,8 +14,8 @@ const TripNavbar = () => {
         <Toolbar>
           <Button color="inherit" onClick={()=>{navigate('/locations')}}>View Locations</Button>
           <Button color="inherit" onClick={()=>{navigate('/accomadations')}}>View Accommodations</Button>
-          <Button color="inherit" onClick={()=>{navigate('/transports')}}>View Transports</Button>
-          <Button color="inherit" onClick={()=>{navigate('/foodpackages')}}>View Food Packages</Button>
+          <Button color="inherit" onClick={()=>{navigate('/transport')}}>View Transports</Button>
+          <Button color="inherit" onClick={()=>{navigate('/foodPackages')}}>View Food Packages</Button>
           <Button color="inherit" onClick={()=>{navigate('/trip')}}>Budget</Button>
         </Toolbar>
       </AppBar>
