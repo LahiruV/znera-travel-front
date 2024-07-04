@@ -11,7 +11,7 @@ export default function CardList({ props }) {
                         <Card sx={{ maxWidth: 345 }}>
                             <CardMedia
                                 component="img"
-                                height="140"
+                                height="200"
                                 image={data.image}
                                 alt={data.name}
                             />
@@ -22,9 +22,16 @@ export default function CardList({ props }) {
                                 <Typography variant="body2" color="text.secondary">
                                     {data.description}
                                 </Typography>
-                                <Typography variant="h6" sx={{ mt: 2 }}>
-                                    Price: ${data.price}
-                                </Typography>
+                                {data.price && (
+                                    <Typography variant="h6" sx={{ mt: 2 }}>
+                                        Price: LKR {data.price}
+                                    </Typography>
+                                )}
+                                {data.percentage && (
+                                    <Typography variant="h6" sx={{ mt: 2 }}>
+                                       Increase Amount: {data.percentage}%
+                                    </Typography>
+                                )}
                             </CardContent>
                         </Card>
                     </Grid>

@@ -9,27 +9,21 @@ const defaultTheme = createTheme();
 
 const foodpackages = [
   {
-    id: 1,
-    name: 'FoodPackages 1',
-    description: 'A beautiful place with stunning views.',
-    image: 'https://via.placeholder.com/150', // replace with actual image URL
-    price: 100,
+      id: 1,
+      name: 'Full Board',
+      description: 'Includes breakfast, lunch, and dinner. Perfect for travelers who prefer having all meals provided.',
+      image: 'https://plus.unsplash.com/premium_photo-1673108852141-e8c3c22a4a22?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      percentage: 15,
   },
   {
-    id: 2,
-    name: 'FoodPackages 2',
-    description: 'A serene location perfect for relaxation.',
-    image: 'https://via.placeholder.com/150', // replace with actual image URL
-    price: 150,
-  },
-  {
-    id: 3,
-    name: 'FoodPackages 3',
-    description: 'An adventurous spot with lots of activities.',
-    image: 'https://via.placeholder.com/150', // replace with actual image URL
-    price: 200,
-  },
+      id: 2,
+      name: 'Half Board',
+      description: 'Includes breakfast and dinner. Ideal for travelers who like to explore local cuisine during lunch.',
+      image: 'https://images.unsplash.com/photo-1547573854-74d2a71d0826?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      percentage: 8,
+  }
 ];
+
 
 export default function FoodPackages() {
   return (
