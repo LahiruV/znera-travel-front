@@ -11,6 +11,7 @@ import Location from './Pages/Main/Location';
 import Accommodation from './Pages/Main/Accomadation';
 import Transport from './Pages/Main/Transport';
 import FoodPackages from './Pages/Main/FoodPackages';
+import MyTrips from './Pages/Main/MyTrips';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/trip" element={<Trip />} />
+        <Route path="/mytrip" element={<MyTrips />} />
         <Route path="/locations" element={<Location />} />
         <Route path="/accomadations" element={<Accommodation />} />
         <Route path="/transport" element={<Transport />} />

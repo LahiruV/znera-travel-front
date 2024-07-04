@@ -112,6 +112,7 @@ export default function Trip() {
     const [accommodation, setAccommodation] = useState('');
     const [transport, setTransport] = useState('');
     const [foodPackage, setFoodPackage] = useState('');
+    const loguser = sessionStorage.getItem('user');
 
     const calculateBudget = () => {
         const locationPrice = locations.find(loc => loc.name === location)?.price || 0;
@@ -128,8 +129,9 @@ export default function Trip() {
 
     const { totalCost, totalCostPerPerson } = calculateBudget();
 
-    const handleSave = async () => {
-        const budgetPlan = {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const tripData = {
             name,
             location,
             noOfDays,
@@ -140,23 +142,21 @@ export default function Trip() {
             foodPackage,
             totalCost,
             totalCostPerPerson,
+            loguser
         };
-
-        const token = sessionStorage.getItem('token');
-        const config = {
+        try {            
+          const response = await axios.post('http://localhost:5000/api/trip/addTrip', tripData, {
             headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-            data: { budgetPlan }
-        };
-        try {
-            const response = await axios.post('https://backendnizz.onrender.com/api/trip/addTrip', config);
-            console.log(response.data);
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            }
+          });
+          console.log(response.data.message);
         } catch (error) {
-            console.error(error);
+          console.error('Error:', error.response ? error.response.data.error : error.message);
         }
-    }
+      };
+   
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -274,7 +274,7 @@ export default function Trip() {
                         <Typography variant="h6">Total Budget: LKR {totalCost.toFixed(2)}</Typography>
                         <Typography variant="h6">Per Person Budget: LKR {totalCostPerPerson.toFixed(2)}</Typography>
                         <Button size='medium' color='warning' variant="contained" sx={{ marginTop: '5px' }}
-                            onClick={handleSave}
+                            onClick={handleSubmit}
                         >Save</Button>
                     </Paper>
                 </Box>

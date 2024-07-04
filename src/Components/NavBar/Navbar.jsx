@@ -81,6 +81,9 @@ const Navbar = () => {
             <MenuItem component={NavLink} to="/trip" style={getLinkStyle}>
               Trip management
             </MenuItem>
+            <MenuItem component={NavLink} to="/mytrip" style={getLinkStyle}>
+              My Trips
+            </MenuItem>
             <MenuItem component={NavLink} to="/profile" style={getLinkStyle}>
               Profile
             </MenuItem>
