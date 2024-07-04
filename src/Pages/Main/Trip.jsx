@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import Navbar from '../../Components/NavBar/Navbar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Container, Box, TextField, MenuItem, Typography, Paper } from '@mui/material';
+import { Container, Box, TextField, MenuItem, Typography, Paper, Button } from '@mui/material';
 import TripNavbar from '../../Components/NavBar/TripNavBar';
+import axios from 'axios';
 
 const defaultTheme = createTheme();
 
@@ -127,6 +128,36 @@ export default function Trip() {
 
     const { totalCost, totalCostPerPerson } = calculateBudget();
 
+    const handleSave = async () => {
+        const budgetPlan = {
+            name,
+            location,
+            noOfDays,
+            noOfPersons,
+            season,
+            accommodation,
+            transport,
+            foodPackage,
+            totalCost,
+            totalCostPerPerson,
+        };
+
+        const token = sessionStorage.getItem('token');
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            data: { budgetPlan }
+        };
+        try {
+            const response = await axios.post('https://backendnizz.onrender.com/api/trip/addTrip', config);
+            console.log(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return (
         <ThemeProvider theme={defaultTheme}>
             <Navbar />
@@ -242,6 +273,9 @@ export default function Trip() {
                         </TextField>
                         <Typography variant="h6">Total Budget: LKR {totalCost.toFixed(2)}</Typography>
                         <Typography variant="h6">Per Person Budget: LKR {totalCostPerPerson.toFixed(2)}</Typography>
+                        <Button size='medium' color='warning' variant="contained" sx={{ marginTop: '5px' }}
+                            onClick={handleSave}
+                        >Save</Button>
                     </Paper>
                 </Box>
             </Container>
