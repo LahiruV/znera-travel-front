@@ -72,7 +72,7 @@ export default function FriendRequests() {
               <ListItem key={request._id}>
                 <Card sx={{ width: '100%' }}>
                   <CardContent>
-                    <Avatar alt={request.from.name} src={request.from.avatar} />
+                    <Avatar alt={request.from.name} src={request.from.profile} />
                     <ListItemText primary={request.from.name} sx={{ ml: 2 }} />
                   </CardContent>
                   <CardActions>

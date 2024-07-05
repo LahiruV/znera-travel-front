@@ -74,17 +74,20 @@ export default function FriendsList() {
                                     <CardContent>
                                         {friend.from._id === loguser ? (
                                             <>
-                                                <Avatar alt={friend.to.name} src={friend.to.avatar} />
+                                                <Avatar alt={friend.to.name} src={friend.to.profile} />
                                                 <ListItemText primary={friend.to.name} sx={{ ml: 2 }} />
                                             </>
                                         ) : friend.to._id === loguser ? (
                                             <>
-                                                <Avatar alt={friend.from.name} src={friend.from.avatar} />
+                                                <Avatar alt={friend.from.name} src={friend.from.profile} />
                                                 <ListItemText primary={friend.from.name} sx={{ ml: 2 }} />
                                             </>
                                         ) : null}
                                     </CardContent>
                                     <CardActions>
+                                        <Button variant="contained" color="warning" onClick={() => handleRemoveFriend(friend._id)}>
+                                            Send Message
+                                        </Button>
                                         <Button variant="contained" color="secondary" onClick={() => handleRemoveFriend(friend._id)}>
                                             Remove Friend
                                         </Button>

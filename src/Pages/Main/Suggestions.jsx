@@ -93,7 +93,7 @@ export default function Suggestions() {
               <ListItem key={suggestion.user._id}>
                 <Card sx={{ width: '100%' }}>
                   <CardContent>
-                    <Avatar alt={suggestion.user.name} src={suggestion.user.avatar} />
+                    <Avatar alt={suggestion.user.name} src={suggestion.user.profile} />
                     <ListItemText primary={suggestion.user.name} sx={{ ml: 2 }} />
                   </CardContent>
                   <CardActions>
