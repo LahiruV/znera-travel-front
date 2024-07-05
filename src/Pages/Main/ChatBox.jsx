@@ -36,7 +36,7 @@ export default function ChatBox() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <Navbar />
-      <Container sx={{ paddingTop: '130px', display: 'flex', flexDirection: 'column', height: '100vh' }}>
+      <Container sx={{ paddingTop: '100px', display: 'flex', flexDirection: 'column', height: '100vh' }}>
         <Typography variant="h4" component="h1" gutterBottom align="center">
           Chat Zone
         </Typography>
