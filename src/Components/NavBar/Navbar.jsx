@@ -67,11 +67,14 @@ const Navbar = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleMenuClose}
               >
-                <MenuItem component={NavLink} to="/friends" style={getLinkStyle} onClick={handleMenuClose}>
+                <MenuItem component={NavLink} to="/friendsList" style={getLinkStyle} onClick={handleMenuClose}>
                   Friends
                 </MenuItem>
-                <MenuItem component={NavLink} to="/addfreinds" style={getLinkStyle} onClick={handleMenuClose}>
-                  Add Friends
+                <MenuItem component={NavLink} to="/suggestions" style={getLinkStyle} onClick={handleMenuClose}>
+                  Suggestions
+                </MenuItem>
+                <MenuItem component={NavLink} to="/friendRequests" style={getLinkStyle} onClick={handleMenuClose}>
+                FriendRequests
                 </MenuItem>
               </Menu>
             </div>
