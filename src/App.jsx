@@ -13,6 +13,7 @@ import MyTrips from './Pages/Main/MyTrips';
 import Suggestions from './Pages/Main/Suggestions';
 import FriendRequests from './Pages/Main/FriendRequests';
 import FriendsList from './Pages/Main/FriendsList';
+import ChatBox from './Pages/Main/ChatBox';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/suggestions" element={<Suggestions />} />
         <Route path="/friendRequests" element={<FriendRequests />} />
         <Route path="/friendsList" element={<FriendsList />} />
+        <Route path="/chatBox" element={<ChatBox />} />
       </Routes>
     </Router>
   );

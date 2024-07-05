@@ -78,8 +78,8 @@ const Navbar = () => {
                 </MenuItem>
               </Menu>
             </div>
-            <MenuItem component={NavLink} to="/groups" style={getLinkStyle}>
-              Group Zone
+            <MenuItem component={NavLink} to="/chatBox" style={getLinkStyle}>
+              Chat Zone
             </MenuItem>
             <MenuItem component={NavLink} to="/trip" style={getLinkStyle}>
               Trip management

@@ -85,7 +85,7 @@ export default function FriendsList() {
                                         ) : null}
                                     </CardContent>
                                     <CardActions>
-                                        <Button variant="contained" color="warning" onClick={() => handleRemoveFriend(friend._id)}>
+                                        <Button variant="contained" color="warning" >
                                             Send Message
                                         </Button>
                                         <Button variant="contained" color="secondary" onClick={() => handleRemoveFriend(friend._id)}>
