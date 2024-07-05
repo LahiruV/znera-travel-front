@@ -3,6 +3,7 @@ import Navbar from '../../Components/NavBar/Navbar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Container, Box, Typography, List, ListItem, ListItemText, Button, Avatar, Card, CardContent, CardActions } from '@mui/material';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const defaultTheme = createTheme();
 
@@ -61,10 +62,21 @@ export default function Suggestions() {
 
       const response = await axios.post('https://backendnizz.onrender.com/api/friend/addFriend', data, config);
       console.log('Response:', response);
-
+      Swal.fire({
+        title: 'Success!',
+        text: "Friend request sent!",
+        icon: 'success',
+        confirmButtonText: 'OK',
+      });
       setSuggestions(suggestions.filter(suggestion => suggestion.user._id !== id));
     } catch (error) {
       console.error('Error sending friend request', error.response.data);
+      Swal.fire({
+        title: 'Error!',
+        text: "Already sent friend request!",
+        icon: 'error',
+        confirmButtonText: 'OK',
+      });
     }
   };
 
