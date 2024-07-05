@@ -38,7 +38,7 @@ export default function MyTrips() {
     ];
     const getTrips = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/trip/trips', {
+            const response = await fetch('https://backendnizz.onrender.com/api/trip/trips', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ export default function MyTrips() {
 
     const handleDelete = async (id) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/trip/trips/${id}`, {
+            const response = await fetch(`https://backendnizz.onrender.com/api/trip/trips/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

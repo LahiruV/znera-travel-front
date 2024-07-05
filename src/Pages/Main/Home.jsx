@@ -108,7 +108,7 @@ const Home = () => {
                         'Authorization': `Bearer ${token}`
                     }
                 };
-                const response = await axios.get('http://localhost:5000/api/auth/me', config);                
+                const response = await axios.get('https://backendnizz.onrender.com/api/auth/me', config);                
                 sessionStorage.setItem("user", response.data._id);                
             } catch (error) {
                 console.error('Error fetching user data', error);

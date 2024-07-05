@@ -60,7 +60,7 @@ function Profile() {
                     'Authorization': `Bearer ${token}`
                 }
             };
-            const response = await axios.get('http://localhost:5000/api/auth/me', config);
+            const response = await axios.get('https://backendnizz.onrender.com/api/auth/me', config);
             setLogUser(response.data);
         } catch (error) {
             console.error('Error fetching user data', error);
@@ -80,7 +80,7 @@ function Profile() {
                 data: { id } // Ensure id is passed correctly in the request body
             };
 
-            const res = await axios.delete("http://localhost:5000/api/auth/delete", config);
+            const res = await axios.delete("https://backendnizz.onrender.com/api/auth/delete", config);
             console.log('User deleted:', res.data);
             window.location.href = "/"; // Redirect after successful delete
         } catch (error) {
@@ -121,7 +121,7 @@ function Profile() {
         try {
             // Update the user profile            
             const res = await axios.put(
-                "http://localhost:5000/api/auth/update",
+                "https://backendnizz.onrender.com/api/auth/update",
                 data,
                 {
                     headers: {

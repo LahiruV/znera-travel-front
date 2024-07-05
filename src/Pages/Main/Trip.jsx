@@ -4,6 +4,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Container, Box, TextField, MenuItem, Typography, Paper, Button } from '@mui/material';
 import TripNavbar from '../../Components/NavBar/TripNavBar';
 import axios from 'axios';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const defaultTheme = createTheme();
 
@@ -104,6 +106,7 @@ const foodPackages = [
 ];
 
 export default function Trip() {
+    const navigate = useNavigate();
     const [name, setName] = useState('');
     const [location, setLocation] = useState('');
     const [noOfDays, setNoOfDays] = useState('');
@@ -144,19 +147,34 @@ export default function Trip() {
             totalCostPerPerson,
             loguser
         };
-        try {            
-          const response = await axios.post('http://localhost:5000/api/trip/addTrip', tripData, {
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-            }
-          });
-          console.log(response.data.message);
+        try {
+            const response = await axios.post('https://backendnizz.onrender.com/api/trip/addTrip', tripData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+                }
+            });
+            await Swal.fire({
+                title: "Success!",
+                text: response.data.message,
+                icon: 'success',
+                confirmButtonText: "OK",
+                type: "success"
+            }).then(() => {
+                navigate('/mytrip');
+            });
         } catch (error) {
-          console.error('Error:', error.response ? error.response.data.error : error.message);
+            Swal.fire({
+                title: "Error!",
+                text: error.message,
+                icon: 'error',
+                confirmButtonText: "OK",
+                type: "error"
+            })
+            console.error('Error:', error.response ? error.response.data.error : error.message);
         }
-      };
-   
+    };
+
 
     return (
         <ThemeProvider theme={defaultTheme}>
