@@ -1,4 +1,3 @@
-// src/Navbar.js
 import React, { useState } from 'react';
 import { AppBar, Toolbar, Typography, Button, MenuItem, Menu, IconButton } from '@mui/material';
 import { NavLink } from 'react-router-dom';
@@ -83,6 +82,9 @@ const Navbar = () => {
             </div>
             <MenuItem component={NavLink} to="/trip" style={getLinkStyle}>
               Trip management
+            </MenuItem>
+            <MenuItem component={NavLink} to="/aiChat" style={getLinkStyle}>
+              Chat With AI Bot
             </MenuItem>
             <MenuItem component={NavLink} to="/mytrip" style={getLinkStyle}>
               My Trips

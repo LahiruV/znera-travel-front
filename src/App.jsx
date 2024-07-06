@@ -13,6 +13,7 @@ import Suggestions from './Pages/Main/Suggestions';
 import FriendRequests from './Pages/Main/FriendRequests';
 import FriendsList from './Pages/Main/FriendsList';
 import ChatBox from './Pages/Main/ChatBox';
+import AiChat from './Pages/Main/AiChat';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/friendRequests" element={<FriendRequests />} />
         <Route path="/friendsList" element={<FriendsList />} />
         <Route path="/chatBox" element={<ChatBox />} />
+        <Route path="/aiChat" element={<AiChat />} />
       </Routes>
     </Router>
   );
