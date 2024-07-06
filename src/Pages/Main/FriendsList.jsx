@@ -3,12 +3,15 @@ import Navbar from '../../Components/NavBar/Navbar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Container, Box, Typography, List, ListItem, ListItemText, Button, Avatar, Card, CardContent, CardActions } from '@mui/material';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const defaultTheme = createTheme();
 
 export default function FriendsList() {
     const [friends, setFriends] = useState([]);
     const loguser = sessionStorage.getItem('user');
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         const fetchFriends = async () => {
@@ -26,7 +29,7 @@ export default function FriendsList() {
                     }
                 };
 
-                const response = await axios.get(`https://backendnizz.onrender.com/api/friend/allFriends/${loguser}`, config);
+                const response = await axios.get(`http://localhost:5000/api/friend/allFriends/${loguser}`, config);
                 setFriends(response.data.friends);
             } catch (error) {
                 console.error('Error fetching friends', error);
@@ -51,12 +54,17 @@ export default function FriendsList() {
                 }
             };
 
-            const response = await axios.delete(`https://backendnizz.onrender.com/api/friend/removeFriend/${id}`, config);
+            const response = await axios.delete(`http://localhost:5000/api/friend/removeFriend/${id}`, config);
             console.log(response.data);
             setFriends(friends.filter(friend => friend._id !== id));
         } catch (error) {
             console.error('Error removing friend', error);
         }
+    };
+
+    const handleMessage = async (id) => {
+        localStorage.setItem('receiver', id);
+        navigate('/chatBox');
     };
 
     return (
@@ -85,8 +93,8 @@ export default function FriendsList() {
                                         ) : null}
                                     </CardContent>
                                     <CardActions>
-                                        <Button variant="contained" color="warning" >
-                                            Send Message
+                                        <Button variant="contained" color="warning" onClick={() => handleMessage(friend._id)}>
+                                            Chat
                                         </Button>
                                         <Button variant="contained" color="secondary" onClick={() => handleRemoveFriend(friend._id)}>
                                             Remove Friend

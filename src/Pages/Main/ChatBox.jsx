@@ -5,7 +5,7 @@ import { Container, Box, TextField, Button, List, ListItem, ListItemText, Typogr
 
 const defaultTheme = createTheme();
 
-const loguser = 'user1'; // Example logged-in user ID
+const loguser = 'user1'; 
 const users = {
   user1: { name: 'User One', avatar: 'https://via.placeholder.com/150' },
   user2: { name: 'User Two', avatar: 'https://via.placeholder.com/150' },
@@ -22,8 +22,6 @@ export default function ChatBox() {
     if (message.trim()) {
       setMessages([...messages, { text: message, isSender: true, userId: loguser }]);
       setMessage('');
-
-      // Simulate receiving a message after 1 second
       setTimeout(() => {
         setMessages((prevMessages) => [
           ...prevMessages,

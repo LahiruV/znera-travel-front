@@ -27,7 +27,7 @@ export default function Suggestions() {
           }
         };
 
-        const response = await axios.get(`https://backendnizz.onrender.com/api/friend/suggestion/${loguser}`, config);
+        const response = await axios.get(`http://localhost:5000/api/friend/suggestion/${loguser}`, config);
         setSuggestions(response.data.friendList);
       } catch (error) {
         console.error('Error fetching suggestions', error);
@@ -60,7 +60,7 @@ export default function Suggestions() {
         }
       };
 
-      const response = await axios.post('https://backendnizz.onrender.com/api/friend/addFriend', data, config);
+      const response = await axios.post('http://localhost:5000/api/friend/addFriend', data, config);
       console.log('Response:', response);
       Swal.fire({
         title: 'Success!',

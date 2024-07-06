@@ -74,13 +74,10 @@ const Navbar = () => {
                   Suggestions
                 </MenuItem>
                 <MenuItem component={NavLink} to="/friendRequests" style={getLinkStyle} onClick={handleMenuClose}>
-                FriendRequests
+                  FriendRequests
                 </MenuItem>
               </Menu>
             </div>
-            <MenuItem component={NavLink} to="/chatBox" style={getLinkStyle}>
-              Chat Zone
-            </MenuItem>
             <MenuItem component={NavLink} to="/trip" style={getLinkStyle}>
               Trip management
             </MenuItem>

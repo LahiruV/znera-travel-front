@@ -26,7 +26,7 @@ export default function FriendRequests() {
           }
         };
 
-        const response = await axios.get(`https://backendnizz.onrender.com/api/friend/allReq/${loguser}`, config);
+        const response = await axios.get(`http://localhost:5000/api/friend/allReq/${loguser}`, config);
         setRequests(response.data.requests);
       } catch (error) {
         console.error('Error fetching friend requests', error);
@@ -51,7 +51,7 @@ export default function FriendRequests() {
         }
       };
 
-      const response = await axios.put(`https://backendnizz.onrender.com/api/friend/updateReq/${id}?status=${status}`, {}, config);
+      const response = await axios.put(`http://localhost:5000/api/friend/updateReq/${id}?status=${status}`, {}, config);
       console.log(response.data);
       setRequests(requests.filter(request => request._id !== id));
     } catch (error) {
