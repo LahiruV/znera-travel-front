@@ -62,8 +62,12 @@ export default function FriendsList() {
         }
     };
 
-    const handleMessage = async (id) => {
-        localStorage.setItem('receiver', id);
+    const handleMessage = async (id1, id2) => {
+        if (id1 === loguser) {
+            sessionStorage.setItem('receiver', id2);
+        } else {
+            sessionStorage.setItem('receiver', id1);
+        }
         navigate('/chatBox');
     };
 
@@ -93,7 +97,7 @@ export default function FriendsList() {
                                         ) : null}
                                     </CardContent>
                                     <CardActions>
-                                        <Button variant="contained" color="warning" onClick={() => handleMessage(friend._id)}>
+                                        <Button variant="contained" color="warning" onClick={() => handleMessage(friend.to._id, friend.from._id)}>
                                             Chat
                                         </Button>
                                         <Button variant="contained" color="secondary" onClick={() => handleRemoveFriend(friend._id)}>

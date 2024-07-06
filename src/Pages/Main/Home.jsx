@@ -68,8 +68,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = () => {
     const classes = useStyles();
-    const [activeStep, setActiveStep] = useState(0);
-    const email = sessionStorage.getItem("cusmail");
+    const [activeStep, setActiveStep] = useState(0);    
 
     const handleStepChange = (step) => {
         setActiveStep(step);

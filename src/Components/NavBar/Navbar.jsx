@@ -10,6 +10,9 @@ const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleLogout = () => {
+    sessionStorage.setItem('token', '');
+    sessionStorage.setItem('user', ''); 
+    sessionStorage.setItem('receiver', '');
     window.location.href = '/';
   };
 
