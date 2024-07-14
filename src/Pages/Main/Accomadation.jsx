@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Navbar from '../../Components/NavBar/Navbar';
 import TripNavbar from '../../Components/NavBar/TripNavBar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
