@@ -6,8 +6,6 @@ import Profile from './Pages/Main/Profile';
 import Trip from './Pages/Main/Trip';
 import Location from './Pages/Main/Location';
 import Accommodation from './Pages/Main/Accomadation';
-import Transport from './Pages/Main/Transport';
-import FoodPackages from './Pages/Main/FoodPackages';
 import MyTrips from './Pages/Main/MyTrips';
 import Suggestions from './Pages/Main/Suggestions';
 import FriendRequests from './Pages/Main/FriendRequests';
@@ -27,8 +25,6 @@ function App() {
         <Route path="/mytrip" element={<MyTrips />} />
         <Route path="/locations" element={<Location />} />
         <Route path="/accomadations" element={<Accommodation />} />
-        <Route path="/transport" element={<Transport />} />
-        <Route path="/foodPackages" element={<FoodPackages />} />
         <Route path="/suggestions" element={<Suggestions />} />
         <Route path="/friendRequests" element={<FriendRequests />} />
         <Route path="/friendsList" element={<FriendsList />} />

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Card, CardContent, CardMedia, Typography, Grid } from '@mui/material';
 
 
@@ -30,6 +29,11 @@ export default function CardList({ props }) {
                                 {data.percentage && (
                                     <Typography variant="h6" sx={{ mt: 2 }}>
                                        Increase Amount: {data.percentage}%
+                                    </Typography>
+                                )}
+                                {data.link && (
+                                    <Typography variant="body2" color="text.secondary">
+                                     <a href={data.link}>Click for more details</a>
                                     </Typography>
                                 )}
                             </CardContent>
