@@ -10,31 +10,47 @@ const defaultTheme = createTheme();
 const accommodations = [
   {
     id: 1,
-    name: 'Normal Hotel',
-    description: 'A cozy hotel offering a comfortable stay with all essential amenities. Ideal for budget travelers who value simplicity and convenience.',
-    image: 'https://images.unsplash.com/photo-1445019980597-93fa8acb246c?q=80&w=2074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    link: '/accommodation/normal',
-    province: 'Western',
+    name: 'The Lake Forest Hotel',
+    description: 'Scenic lakeside location, stunning views from rooms and restaurant, friendly and accommodating staff, well-appointed spacious rooms, excellent food accommodating dietary needs.',
+    image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/5c/33/4f/the-lake-forest-hotel.jpg?w=1200&h=-1&s=1',
+    link: 'https://www.tripadvisor.com/Hotel_Review-g304132-d18816510-Reviews-The_Lake_Forest_Hotel-Anuradhapura_North_Central_Province.html',
+    province: 'Anuradhapura',
   },
   {
     id: 2,
-    name: 'Luxury Hotel',
-    description: 'An elegant hotel featuring luxurious rooms, fine dining, and top-notch services. Perfect for those seeking a premium experience.',
-    image: 'https://plus.unsplash.com/premium_photo-1661676056771-f6c2711249e0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    link: '/accommodation/luxury',
-    province: 'Southern',
+    name: 'Aryana Hotel',
+    description: 'Centrally located boutique hotel known for friendly staff, clean rooms, and exquisite Sri Lankan cuisine. Features peaceful atmosphere, lovely gardens, pool, and reasonable prices.',
+    image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/19/3c/2b/cc/img-20190913-214152-largejpg.jpg?w=900&h=-1&s=1',
+    link: 'https://www.tripadvisor.com/Hotel_Review-g304132-d16746608-Reviews-Aryana_Hotel-Anuradhapura_North_Central_Province.html',
+    province: 'Anuradhapura',
   },
   {
     id: 3,
-    name: 'Premium Hotel',
-    description: 'A top-tier hotel offering unparalleled luxury and comfort. Features exquisite decor, world-class amenities, and exceptional service.',
-    image: 'https://images.unsplash.com/photo-1455587734955-081b22074882?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    link: '/accommodation/premium',
-    province: 'Western',
+    name: 'Le Grand Galle',
+    description: 'Luxurious Sri Lankan hotel with spacious rooms offering stunning views. Highly praised for breakfast buffet, dinner options and Blue restaurant. Features a beautiful pool, private beach, and cozy super deluxe room. Unforgettable for its exceptional hospitality and beautiful natural surroundings.',
+    image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/3a/10/2a/pool-area.jpg?w=1200&h=-1&s=1',
+    link: 'https://www.tripadvisor.com/Hotel_Review-g297896-d14033359-Reviews-Le_Grand_Galle-Galle_Galle_District_Southern_Province.html',
+    province: 'Galle',
+  },
+  {
+    id: 4,
+    name: 'Mango House',
+    description: 'Centrally located within Galle Fort, this budget-friendly hotel offers a charming colonial ambiance, spacious rooms, and a beautiful courtyard garden. Notable for its delicious traditional Sri Lankan meals, friendly staff, and unique wildlife encounters.',
+    image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/26/9f/e5/51/mango-house.jpg?w=1200&h=-1&s=1',
+    link: 'https://www.tripadvisor.com/Hotel_Review-g297896-d2034349-Reviews-Mango_House-Galle_Galle_District_Southern_Province.html',
+    province: 'Galle',
+  },
+  {
+    id: 5,
+    name: 'Yara Galle Fort',
+    description: 'Renovated heritage building with elegant interiors. Offers Sri Lankan breakfast, spacious rooms, and comfortable beds. Located near Galle Fort and local attractions.',
+    image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/2b/57/e4/upper-floor-bed-room.jpg?w=1200&h=-1&s=1',
+    link: 'https://www.tripadvisor.com/Hotel_Review-g297896-d14916776-Reviews-Yara_Galle_Fort-Galle_Galle_District_Southern_Province.html',
+    province: 'Galle',
   },
 ];
 
-const provinces = ['All', 'Western', 'Southern'];
+const provinces = ['All', 'Anuradhapura', 'Galle'];
 
 export default function Accommodation() {
   const [selectedProvince, setSelectedProvince] = useState('All');
@@ -53,11 +69,11 @@ export default function Accommodation() {
       <TripNavbar />
       <Container>
         <FormControl  variant="filled" margin="normal" sx={{backgroundColor:'white', width:'200px'}}>
-          <InputLabel>Province</InputLabel>
+          <InputLabel>State</InputLabel>
           <Select
             value={selectedProvince}
             onChange={handleProvinceChange}
-            label="Province"
+            label="State"
           >
             {provinces.map(province => (
               <MenuItem key={province} value={province}>
