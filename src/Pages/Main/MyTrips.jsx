@@ -205,8 +205,7 @@ export default function MyTrips() {
                                 name="location"
                                 value={currentTrip.location}
                                 onChange={handleChange}
-                                fullWidth
-                                disabled={true}
+                                fullWidth                                
                             />
                         </Grid>
                         <Grid item xs={12}>

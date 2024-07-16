@@ -1,37 +1,13 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import Navbar from '../../Components/NavBar/Navbar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Container, Box, TextField, Typography, Paper, Button, MenuItem } from '@mui/material';
+import { Container, Box, TextField, Typography, Paper, Button } from '@mui/material';
 import TripNavbar from '../../Components/NavBar/TripNavBar';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
 const defaultTheme = createTheme();
-
-const locations = [
-    {
-        id: 1,
-        name: 'Jaffna',
-        description: 'Jaffna is a city on the northern tip of Sri Lanka...',
-        image: 'https://images.unsplash.com/photo-1578161804288-59162292b136?q=80&w=2070&auto=format&fit=crop',
-        price: 6500,
-    },
-    {
-        id: 2,
-        name: 'Kandy',
-        description: 'Kandy is a large city in central Sri Lanka...',
-        image: 'https://images.unsplash.com/photo-1566766188646-5d0310191714?q=80&w=2070&auto=format&fit=crop',
-        price: 8000,
-    },
-    {
-        id: 3,
-        name: 'Galle',
-        description: 'Galle is a city on the southwest coast of Sri Lanka...',
-        image: 'https://images.unsplash.com/photo-1713038948592-5d070e8e8459?q=80&w=2070&auto=format&fit=crop',
-        price: 7500,
-    },
-];
 
 export default function Trip() {
     const navigate = useNavigate();
@@ -141,19 +117,12 @@ export default function Trip() {
                             required
                         />
                         <TextField
-                            select
                             label="Location"
                             value={location}
                             onChange={(e) => setLocation(e.target.value)}
                             sx={{ mb: 2, width: '100%' }}
                             required
-                        >
-                            {locations.map((loc) => (
-                                <MenuItem key={loc.name} value={loc.name}>
-                                    {loc.name}
-                                </MenuItem>
-                            ))}
-                        </TextField>
+                        />
                         <TextField
                             label="Number of Days"
                             type="number"
